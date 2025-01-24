@@ -24,39 +24,38 @@ class Solution {
         // Your code here
         Stack<Character> st = new Stack<>();
         String ans = "";
+        
         for(int i=0;i<s.length();i++){
             char ss = s.charAt(i);
-            if((ss >= 'A' && ss <= 'Z') ||
-               (ss >= 'a' && ss <= 'z') ||
-               (ss >= '0' && ss <= '9')) 
-               ans = ans+ss;
-            
-            else if(ss == '(') st.push(ss);
+            if(ss == '(') st.push(ss);
+            else if((ss >= 'A' && ss<='Z') ||
+                    (ss >= 'a' && ss<='z') ||
+                    (ss >= '0' && ss<='9'))
+                    ans = ans + ss;
             else if(ss == ')'){
                 while(st.peek() != '('){
-                    ans = ans+st.pop();
+                    ans = ans + st.pop();
                 }
-                st.pop(); //to remove the remaining '(' bracket
+                st.pop();
             }
-            
-            else{ //ss == operancd case
+            else{
                 while(!st.isEmpty() && priority(ss) <= priority(st.peek())){
-                    ans = ans+st.pop();
+                    ans = ans + st.pop();
                 }
-                st.push(ss); // to add the operator with lower priority  
+                st.push(ss);
             }
         }
         while(!st.isEmpty()){
-            ans = ans+st.peek();
-            st.pop();
+            ans = ans+st.pop();
         }
         
         return ans;
     }
+
     
     static int priority(char s){
         if(s == '^') return 3;
-        else if(s == '*' || s == '/') return 2;
+        else if(s == '/' || s == '*') return 2;
         else if(s == '+' || s == '-') return 1;
         else return -1;
     }
