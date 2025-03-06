@@ -40,18 +40,17 @@ class Solution {
     public ArrayList<Integer> nextLargerElement(int[] arr) {
         // code here
         Stack<Integer> st = new Stack<>();
-        ArrayList<Integer> ans = new ArrayList<>();
+        ArrayList<Integer> res = new ArrayList<>();
         
         for(int i=arr.length-1;i>=0;i--){
-            while(!st.isEmpty() && st.peek() <= arr[i]){
+            while(!st.isEmpty() && st.peek()<=arr[i]){
                 st.pop();
             }
-            
-            ans.add(st.isEmpty()?-1:st.peek());
+            res.add(st.isEmpty()?-1:st.peek());
             st.push(arr[i]);
         }
         
-        Collections.reverse(ans);
-        return ans;
+        Collections.reverse(res);
+        return res;
     }
 }
