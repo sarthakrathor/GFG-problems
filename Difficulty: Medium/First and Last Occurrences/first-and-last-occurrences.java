@@ -17,7 +17,7 @@ class GFG {
         for(int i=0;i<arr.length;i++){
             if(arr[i] == x){
                 if(first == -1)first = i;
-                last = Math.max(i, last);
+                last = i;
             }
         }
         
