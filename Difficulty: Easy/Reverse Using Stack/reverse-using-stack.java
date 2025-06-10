@@ -1,40 +1,18 @@
-//{ Driver Code Starts
-/*package whatever //do not write package name here */
-
-import java.io.*;
-import java.util.*;
-
-class GFG {
-	public static void main (String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-        while(t-- > 0){
-            Solution obj = new Solution();
-            System.out.println(obj.reverse(sc.next()));
-        
-System.out.println("~");
-}
-	}
-}
-
-// } Driver Code Ends
-
-
 class Solution {
-    
-    public String reverse(String S){
-        //code here
-        Stack<Character> s = new Stack<>();
-        for(int i=0;i<S.length();i++){
-            s.push(S.charAt(i));
+    public String reverse(String S) {
+        // code here
+        Stack<Character> st = new Stack<>();
+        int i = 0;
+        while(i<S.length()){
+            st.push(S.charAt(i));
+            i++;
         }
         
-        String res = "";
-        while(!s.isEmpty())
-        {
-            res = res+s.pop();
+        String rs = "";
+        while(!st.isEmpty()){
+            rs+=st.pop();
         }
-        return res;
+        
+        return rs;
     }
-
 }
