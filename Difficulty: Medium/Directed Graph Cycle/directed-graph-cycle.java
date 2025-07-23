@@ -1,9 +1,10 @@
 class Solution {
     public boolean isCyclic(int V, int[][] edges) {
         // code here
-        //using kahn's algorithm 
+        boolean[] path = new boolean[V];
+        boolean[] visited = new boolean[V];
+        
         List<List<Integer>> adj = new ArrayList<>();
-        int[] indegree = new int[V];
         for(int i=0;i<V;i++){
             adj.add(new ArrayList<>());
         }
@@ -12,31 +13,32 @@ class Solution {
             int u = arr[0];
             int v = arr[1];
             adj.get(u).add(v);
-            indegree[v]++;
         }
         
-        Queue<Integer> q = new LinkedList<>();
-        for (int i = 0; i < V; i++) {
-            if (indegree[i] == 0) {
-            q.add(i);
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                if(dfs(i,adj,path,visited)) return true;
             }
         }
         
-        int count = 0; // for keeping track of nodes that 
-                       // are already processed
-                       
-        while(!q.isEmpty()){
-            int curr = q.poll();
-            count++;
-            
-            for(int n:adj.get(curr)){
-                indegree[n]--;
-                if(indegree[n] == 0) q.add(n);
-            }
-        }
-        
-        return count != V; // checking if there are some nodes unprocessed
-        // if exists mean cycle is present 
-        
+        return false;
     }
+        
+        boolean dfs(int node,List<List<Integer>> adj,boolean[] path,boolean[] visited){
+            visited[node] = true;
+            path[node] = true;
+            
+            for(int n:adj.get(node)){
+                if(!visited[n]){
+                    if(dfs(n,adj,path,visited)) return true;
+                }else if(path[n]){
+                    return true;
+                }
+            }
+            
+            path[node] = false;
+            return false;
+        }
+        
+        
 }
